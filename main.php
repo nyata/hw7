@@ -6,7 +6,7 @@
     $get = $_GET["pos"];
   }
 
-  if(preg_match('/convert?message/', $url)) {
+  if(preg_match('/convert/', $url)) {
     $flg = true;
     $result = convert($get);
   } elseif(preg_match('/show/', $url)) {
@@ -20,9 +20,16 @@
     $result = madlib();
   } else {
     $flg = false;
+    echo "<ul>";
+    echo "<li>/convert?message=hogehoge</li>";
+    echo "<li>/show?message=hogehoge</li>";
+    echo "<li>/getword?pos=color</li>";
+    echo "<li>/madlib</li>";
+    echo "</ul>";
   }
-
-  //echo htmlspecialchars($result, ENT_QUOTES);
+  if($flg) {
+    echo htmlspecialchars($result, ENT_QUOTES);
+  }
   
   function convert($get) {
     $ar = str_split($get);
@@ -118,21 +125,3 @@
     }
     return $result;
   }
-?>
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body>
-    <?php if($flg) : ?>
-      <?php echo htmlspecialchars($result, ENT_QUOTES); ?>
-    <?php else : ?>
-      <ul>
-        <li>/convert?message=hogehoge</li>
-        <li>/show?message=hogehoge</li>
-        <li>/getword?pos=color</li>
-        <li>/madlib</li>
-      </ul>
-    <?php endif; ?>
-  </body>
-</html>
